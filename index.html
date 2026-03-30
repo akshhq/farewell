@@ -109,11 +109,38 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--text);font-fam
 .note:nth-child(5){animation-delay:.25s}.note:nth-child(6){animation-delay:.31s}.note:nth-child(7){animation-delay:.37s}
 
 /* ══ SECTION PAGES ══ */
-.sec-hdr{display:flex;align-items:center;gap:.9rem;padding:clamp(1.1rem,3vw,1.7rem) clamp(1.2rem,4vw,2.5rem);border-bottom:.5px solid var(--border);position:sticky;top:50px;z-index:90;background:rgba(12,10,7,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
-.sec-back{width:31px;height:31px;border:.5px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.82rem;color:var(--muted);transition:border-color .2s,background .2s,color .2s;-webkit-tap-highlight-color:transparent;flex-shrink:0}
-.sec-back:hover{border-color:var(--gold);background:rgba(201,168,76,.08);color:var(--gold)}
+.sec-hdr {
+  display:flex;
+  align-items:center;
+  gap:.9rem;
+  padding:1.5rem 1.5rem 0;
+  
+  position:relative; /* remove sticky */
+  background:transparent; /* remove bar */
+  border:none;
+  
+}
+.sec-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  color: var(--text);
+
+  border: none;
+  background: none;
+  padding: 0;
+
+  transition: color 0.2s ease;
+}
+.sec-back:hover {
+  color: var(--gold);
+}
 .sec-title{font-family:var(--serif);font-size:clamp(.95rem,2.5vw,1.3rem);font-weight:400}
-.sec-body{padding:clamp(1.5rem,4vw,2.5rem) clamp(1.2rem,4vw,2.5rem)}
+.sec-body{padding:clamp(1.5rem,4vw,2.5rem) clamp(1.2rem,4vw,2.5rem);padding-top: 1rem;}
 
 /* journey */
 .jlead{font-family:var(--serif);font-size:clamp(1.8rem,5vw,3rem);font-weight:300;font-style:italic;line-height:1.2;margin-bottom:.8rem}
@@ -350,8 +377,9 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--text);font-fam
   <!-- ──── MEDIA VAULT ──── -->
   <div class="pg" id="pg-media">
     <div class="sec-hdr">
-      <div class="sec-back" onclick="showPg('seniors')">←</div>
-      <div class="sec-title">Media Vault</div>
+      <div class="sec-back" onclick="showPg('seniors')">
+      ← <span class="sec-title">Media Vault</span>
+      </div>
     </div>
     <div class="sec-body">
       <p class="media-lead">Every photo is a<br>memory we get to keep.</p>
