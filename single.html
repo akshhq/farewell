@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Batch '26 — A Journey We'll Always Carry</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gold: #c9a84c;
+    --gold-light: #e8d08a;
+    --gold-dim: #6b5520;
+    --bg: #0c0a07;
+    --bg2: #13100a;
+    --bg3: #1a1510;
+    --text: #f0e8d8;
+    --text-muted: #9a8f7a;
+    --text-dim: #5a5040;
+    --border: rgba(201,168,76,0.18);
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'DM Sans', sans-serif;
+  }
+
+  html, body {
+    width: 100%; height: 100%;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    overflow: hidden;
+    cursor: default;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── SPLASH ── */
+  #splash {
+    position: fixed; inset: 0; z-index: 100;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    background: var(--bg);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+  #splash.away { opacity: 0; transform: scale(1.04); pointer-events: none; }
+
+  .splash-year {
+    font-family: var(--serif);
+    font-size: clamp(5rem, 18vw, 14rem);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--gold);
+    text-stroke: 1px var(--gold);
+    animation: fadeUp 1.2s cubic-bezier(.22,1,.36,1) both;
+    position: relative;
+  }
+  .splash-year::after {
+    content: attr(data-text);
+    position: absolute; inset: 0;
+    color: var(--gold);
+    clip-path: inset(70% 0 0 0);
+    opacity: 0.3;
+  }
+  .splash-tag {
+    font-family: var(--serif);
+    font-size: clamp(0.85rem, 2.5vw, 1.25rem);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    margin-top: 1rem;
+    animation: fadeUp 1.4s cubic-bezier(.22,1,.36,1) both;
+  }
+  .splash-divider {
+    width: 1px; height: 3rem;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    margin: 2.5rem 0 1.5rem;
+    animation: fadeUp 1.6s cubic-bezier(.22,1,.36,1) both;
+  }
+  .splash-hint {
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    animation: pulse 2.5s ease-in-out 2s infinite, fadeUp 1.6s cubic-bezier(.22,1,.36,1) both;
+  }
+
+  /* ── MAIN SHELL ── */
+  #app {
+    position: fixed; inset: 0;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.8s ease 0.3s;
+    overflow: hidden;
+  }
+  #app.visible { opacity: 1; pointer-events: all; }
+
+  /* ── HOME ── */
+  #home {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  #home.hidden { opacity: 0; transform: scale(0.97); pointer-events: none; }
+
+  .home-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% 100%, rgba(201,168,76,0.07) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 20% 20%, rgba(201,168,76,0.04) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .home-grid {
+    position: absolute; inset: 0; opacity: 0.03;
+    background-image:
+      linear-gradient(var(--gold) 1px, transparent 1px),
+      linear-gradient(90deg, var(--gold) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .home-header {
+    padding: clamp(1.5rem, 4vw, 2.5rem) clamp(1.5rem, 5vw, 3rem);
+    display: flex; align-items: center; justify-content: space-between;
+    position: relative;
+  }
+  .home-logo {
+    font-family: var(--serif);
+    font-size: 1.3rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--gold);
+  }
+  .home-year-badge {
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    border: 0.5px solid var(--border);
+    padding: 0.3rem 0.8rem;
+    border-radius: 2rem;
+  }
+
+  .home-hero {
+    flex: 1;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 1rem clamp(1rem, 5vw, 3rem);
+    position: relative;
+    gap: 0;
+  }
+  .hero-small {
+    font-size: 0.72rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    margin-bottom: 1.2rem;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-title {
+    font-family: var(--serif);
+    font-size: clamp(2.5rem, 8vw, 6.5rem);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    animation: fadeUp 0.7s ease 0.1s both;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .hero-sub {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+    color: var(--text-muted);
+    margin-top: 1.2rem;
+    font-weight: 300;
+    animation: fadeUp 0.8s ease 0.2s both;
+  }
+
+  .nav-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(0.6rem, 2vw, 1rem);
+    padding: clamp(1rem, 3vw, 1.8rem) clamp(1rem, 4vw, 2.5rem) clamp(1.5rem, 4vw, 2.5rem);
+    position: relative;
+    max-width: 860px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .nav-card {
+    position: relative;
+    background: var(--bg2);
+    border: 0.5px solid var(--border);
+    border-radius: 4px;
+    padding: clamp(1.2rem, 3vw, 1.8rem) clamp(1.2rem, 3vw, 1.8rem);
+    cursor: pointer;
+    overflow: hidden;
+    transition: border-color 0.3s, background 0.3s, transform 0.25s;
+    animation: fadeUp 0.6s ease both;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .nav-card:nth-child(1) { animation-delay: 0.25s; }
+  .nav-card:nth-child(2) { animation-delay: 0.32s; }
+  .nav-card:nth-child(3) { animation-delay: 0.39s; }
+  .nav-card:nth-child(4) { animation-delay: 0.46s; }
+  .nav-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(201,168,76,0.06) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .nav-card:hover { border-color: rgba(201,168,76,0.45); background: var(--bg3); transform: translateY(-2px); }
+  .nav-card:hover::before { opacity: 1; }
+  .nav-card:active { transform: scale(0.98) translateY(0); }
+
+  .card-num {
+    font-family: var(--serif);
+    font-size: 0.7rem;
+    color: var(--gold-dim);
+    letter-spacing: 0.15em;
+    margin-bottom: 0.6rem;
+  }
+  .card-title {
+    font-family: var(--serif);
+    font-size: clamp(1.1rem, 2.8vw, 1.6rem);
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    line-height: 1.2;
+  }
+  .card-desc {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+    letter-spacing: 0.04em;
+    line-height: 1.5;
+  }
+  .card-arrow {
+    position: absolute;
+    right: 1.2rem; bottom: 1.2rem;
+    font-size: 1rem;
+    color: var(--gold-dim);
+    opacity: 0;
+    transform: translate(-4px, 4px);
+    transition: opacity 0.3s, transform 0.3s;
+  }
+  .nav-card:hover .card-arrow { opacity: 1; transform: translate(0, 0); }
+
+  /* ── SECTION PAGES ── */
+  .section-page {
+    position: absolute; inset: 0;
+    overflow-y: auto;
+    background: var(--bg);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(30px);
+    transition: opacity 0.55s ease, transform 0.55s cubic-bezier(.22,1,.36,1);
+  }
+  .section-page.active {
+    opacity: 1; pointer-events: all;
+    transform: translateY(0);
+  }
+
+  .section-header {
+    display: flex; align-items: center; gap: 1rem;
+    padding: clamp(1.2rem, 3vw, 2rem) clamp(1.2rem, 4vw, 2.5rem);
+    border-bottom: 0.5px solid var(--border);
+    position: sticky; top: 0;
+    background: rgba(12,10,7,0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 10;
+  }
+  .back-btn {
+    width: 34px; height: 34px;
+    border: 0.5px solid var(--border);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    flex-shrink: 0;
+    -webkit-tap-highlight-color: transparent;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+  .back-btn:hover { border-color: var(--gold); background: rgba(201,168,76,0.08); color: var(--gold); }
+  .section-title-sm {
+    font-family: var(--serif);
+    font-size: clamp(1rem, 2.5vw, 1.4rem);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+  }
+
+  .section-body { padding: clamp(1.5rem, 4vw, 3rem) clamp(1.2rem, 4vw, 2.5rem); }
+
+  /* ── THE JOURNEY ── */
+  .journey-intro {
+    max-width: 600px;
+    margin-bottom: 3rem;
+  }
+  .journey-intro h2 {
+    font-family: var(--serif);
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.2;
+    margin-bottom: 0.8rem;
+  }
+  .journey-intro p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+    letter-spacing: 0.03em;
+  }
+
+  .timeline {
+    position: relative;
+    padding-left: clamp(1.5rem, 5vw, 3rem);
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 8px; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--gold), rgba(201,168,76,0.1) 90%, transparent);
+  }
+  .tl-item {
+    position: relative;
+    margin-bottom: clamp(2rem, 5vw, 3.5rem);
+    animation: fadeUp 0.6s ease both;
+  }
+  .tl-item:nth-child(1) { animation-delay: 0.1s; }
+  .tl-item:nth-child(2) { animation-delay: 0.2s; }
+  .tl-item:nth-child(3) { animation-delay: 0.3s; }
+  .tl-item:nth-child(4) { animation-delay: 0.4s; }
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: calc(-1 * clamp(1.5rem, 5vw, 3rem) - 4px);
+    top: 6px;
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 1.5px solid var(--gold);
+  }
+  .tl-year {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.4rem;
+  }
+  .tl-heading {
+    font-family: var(--serif);
+    font-size: clamp(1.1rem, 3vw, 1.5rem);
+    font-weight: 400;
+    margin-bottom: 0.4rem;
+  }
+  .tl-text {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.75;
+    max-width: 520px;
+  }
+
+  /* ── YEARBOOK ── */
+  .yearbook-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 180px), 1fr));
+    gap: clamp(0.8rem, 2vw, 1.2rem);
+  }
+  .yb-card {
+    background: var(--bg2);
+    border: 0.5px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: transform 0.25s, border-color 0.25s;
+    cursor: default;
+    animation: fadeUp 0.5s ease both;
+  }
+  .yb-card:hover { transform: translateY(-3px); border-color: rgba(201,168,76,0.4); }
+  .yb-photo {
+    width: 100%;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    display: block;
+    background: var(--bg3);
+    position: relative;
+  }
+  .yb-photo-placeholder {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: var(--bg3);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--serif);
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: var(--text-dim);
+    position: relative;
+    overflow: hidden;
+  }
+  .yb-photo-placeholder::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(201,168,76,0.05) 0%, transparent 70%);
+  }
+  .yb-info {
+    padding: 0.75rem 0.85rem 0.9rem;
+  }
+  .yb-name {
+    font-family: var(--serif);
+    font-size: 1rem;
+    font-weight: 400;
+    margin-bottom: 0.2rem;
+  }
+  .yb-role {
+    font-size: 0.68rem;
+    color: var(--gold-dim);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .yb-quote {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    font-style: italic;
+    font-family: var(--serif);
+    line-height: 1.5;
+  }
+
+  /* ── MEDIA VAULT ── */
+  .media-intro {
+    font-family: var(--serif);
+    font-size: clamp(1.6rem, 4vw, 2.5rem);
+    font-weight: 300;
+    font-style: italic;
+    margin-bottom: 2rem;
+    line-height: 1.2;
+  }
+  .media-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
+  }
+  @media (max-width: 480px) {
+    .media-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  .media-item {
+    aspect-ratio: 1;
+    background: var(--bg3);
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    animation: fadeIn 0.4s ease both;
+  }
+  .media-item:hover { opacity: 0.85; }
+  .media-item:hover .media-overlay { opacity: 1; }
+  .media-item img {
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+  }
+  .media-placeholder {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+  .media-overlay {
+    position: absolute; inset: 0;
+    background: rgba(12,10,7,0.5);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.2s;
+    font-size: 1.3rem;
+  }
+  .media-item:nth-child(1) { grid-column: span 2; }
+  .media-item:nth-child(4) { grid-column: span 2; }
+  .media-item:nth-child(7) { grid-row: span 2; }
+
+  /* ── THE WALL ── */
+  .wall-intro {
+    max-width: 540px;
+    margin-bottom: 2.5rem;
+  }
+  .wall-intro h2 {
+    font-family: var(--serif);
+    font-size: clamp(1.6rem, 4.5vw, 2.8rem);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.2;
+    margin-bottom: 0.6rem;
+  }
+  .wall-intro p {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+  }
+  .wall-messages {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+    gap: clamp(0.8rem, 2vw, 1.2rem);
+  }
+  .wall-msg {
+    background: var(--bg2);
+    border: 0.5px solid var(--border);
+    border-radius: 4px;
+    padding: 1.2rem 1.3rem;
+    position: relative;
+    overflow: hidden;
+    animation: fadeUp 0.5s ease both;
+    transition: border-color 0.25s;
+  }
+  .wall-msg:hover { border-color: rgba(201,168,76,0.35); }
+  .wall-msg::before {
+    content: '\201C';
+    position: absolute;
+    top: -0.8rem; left: 0.8rem;
+    font-family: var(--serif);
+    font-size: 5rem;
+    color: rgba(201,168,76,0.07);
+    line-height: 1;
+    pointer-events: none;
+  }
+  .msg-text {
+    font-family: var(--serif);
+    font-size: clamp(0.88rem, 2.2vw, 1rem);
+    font-weight: 300;
+    line-height: 1.75;
+    color: var(--text);
+    margin-bottom: 1rem;
+    position: relative;
+  }
+  .msg-from {
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+  }
+  .msg-from span { color: var(--gold); }
+  .wall-msg:nth-child(1) { animation-delay: 0.05s; }
+  .wall-msg:nth-child(2) { animation-delay: 0.1s; }
+  .wall-msg:nth-child(3) { animation-delay: 0.15s; }
+  .wall-msg:nth-child(4) { animation-delay: 0.2s; }
+  .wall-msg:nth-child(5) { animation-delay: 0.25s; }
+  .wall-msg:nth-child(6) { animation-delay: 0.3s; }
+
+  /* Large featured quote */
+  .wall-featured {
+    background: var(--bg2);
+    border: 0.5px solid rgba(201,168,76,0.3);
+    border-radius: 4px;
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    margin-bottom: clamp(0.8rem, 2vw, 1.2rem);
+    position: relative;
+    overflow: hidden;
+    animation: fadeUp 0.5s ease both;
+  }
+  .wall-featured::before {
+    content: '\201C';
+    position: absolute;
+    top: -1.5rem; left: 1rem;
+    font-family: var(--serif);
+    font-size: 8rem;
+    color: rgba(201,168,76,0.06);
+    pointer-events: none;
+  }
+  .wall-featured .msg-text {
+    font-size: clamp(1.1rem, 3vw, 1.5rem);
+    font-style: italic;
+  }
+
+  /* ── KEYFRAMES ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(22px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 0.35; }
+    50% { opacity: 0.9; }
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 2px; }
+
+  /* ── FOOTER inside sections ── */
+  .section-foot {
+    padding: 2rem 0 0.5rem;
+    text-align: center;
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  /* ── UPLOAD hint ── */
+  .upload-hint {
+    display: inline-block;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    border: 0.5px dashed var(--text-dim);
+    padding: 0.3rem 0.7rem;
+    border-radius: 2px;
+    margin-top: 0.5rem;
+  }
+
+  @media (max-width: 480px) {
+    .nav-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ SPLASH ═══════════════════ -->
+<div id="splash" onclick="revealApp()">
+  <div class="splash-year" data-text="'26">'26</div>
+  <div class="splash-tag">A Journey We'll Always Carry</div>
+  <div class="splash-divider"></div>
+  <div class="splash-hint">tap anywhere to begin</div>
+</div>
+
+<!-- ═══════════════════ APP ═══════════════════ -->
+<div id="app">
+
+  <!-- HOME -->
+  <div id="home">
+    <div class="home-bg"></div>
+    <div class="home-grid"></div>
+    <div class="home-header">
+      <div class="home-logo">Batch '26</div>
+      <div class="home-year-badge">2022 — 2026</div>
+    </div>
+    <div class="home-hero">
+      <div class="hero-small">Farewell</div>
+      <h1 class="hero-title">A Journey We'll<br><em>Always Carry</em></h1>
+      <p class="hero-sub">Four years. One family. A lifetime of memories.</p>
+    </div>
+    <div class="nav-grid">
+      <div class="nav-card" onclick="openSection('journey')">
+        <div class="card-num">01</div>
+        <div class="card-title">The Journey</div>
+        <div class="card-desc">Every chapter of four unforgettable years</div>
+        <div class="card-arrow">↗</div>
+      </div>
+      <div class="nav-card" onclick="openSection('yearbook')">
+        <div class="card-num">02</div>
+        <div class="card-title">Yearbook</div>
+        <div class="card-desc">Faces, names & the words they'll leave behind</div>
+        <div class="card-arrow">↗</div>
+      </div>
+      <div class="nav-card" onclick="openSection('media')">
+        <div class="card-num">03</div>
+        <div class="card-title">Media Vault</div>
+        <div class="card-desc">Moments frozen in time, forever</div>
+        <div class="card-arrow">↗</div>
+      </div>
+      <div class="nav-card" onclick="openSection('wall')">
+        <div class="card-num">04</div>
+        <div class="card-title">The Wall</div>
+        <div class="card-desc">Words from the hearts they touched</div>
+        <div class="card-arrow">↗</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── THE JOURNEY ─── -->
+  <div id="journey" class="section-page">
+    <div class="section-header">
+      <div class="back-btn" onclick="closeSection('journey')">←</div>
+      <div class="section-title-sm">The Journey</div>
+    </div>
+    <div class="section-body">
+      <div class="journey-intro">
+        <h2>Four years of<br>becoming.</h2>
+        <p>From nervous freshers to the people who shaped this place — here is the story of Batch '26, told in the moments that mattered most.</p>
+      </div>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-year">2022 — Year I</div>
+          <div class="tl-heading">The Beginning</div>
+          <p class="tl-text">Strangers walked in through those gates, wide-eyed and uncertain. They'd leave as something far more — as family. The first semester was chaos, caffeine, and the slow discovery that everyone was figuring it out together.</p>
+          <!-- Replace this text with your own Year 1 memory -->
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2023 — Year II</div>
+          <div class="tl-heading">Finding Ground</div>
+          <p class="tl-text">The second year brought confidence and competition in equal measure. Late nights in the common room, friendships forged over shared deadlines, the first big wins — and the losses that taught us more.</p>
+          <!-- Replace this text with your own Year 2 memory -->
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2024 — Year III</div>
+          <div class="tl-heading">The Peak</div>
+          <p class="tl-text">This was the year everything came together. Leadership roles, passion projects, the festival everyone still talks about. Batch '26 left their mark on every wall of this institution — and on everyone in it.</p>
+          <!-- Replace this text with your own Year 3 memory -->
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2025–26 — Year IV</div>
+          <div class="tl-heading">The Final Chapter</div>
+          <p class="tl-text">The last year was bittersweet before it even began. They savoured every ordinary day knowing it was extraordinary. And now they walk out — not as students, but as people ready to change the world.</p>
+          <!-- Replace this text with your own Year 4 memory -->
+        </div>
+      </div>
+    </div>
+    <div class="section-foot">Batch '26 · 2022–2026</div>
+  </div>
+
+  <!-- ─── YEARBOOK ─── -->
+  <div id="yearbook" class="section-page">
+    <div class="section-header">
+      <div class="back-btn" onclick="closeSection('yearbook')">←</div>
+      <div class="section-title-sm">Yearbook</div>
+    </div>
+    <div class="section-body">
+      <div class="yearbook-grid" id="yb-grid">
+
+        <!-- TEMPLATE CARD — duplicate and fill in for each senior -->
+        <div class="yb-card">
+          <div class="yb-photo-placeholder">A</div>
+          <div class="yb-info">
+            <div class="yb-name">Aanya Sharma</div>
+            <div class="yb-role">Computer Science</div>
+            <div class="yb-quote">"The best is yet to come — I'm just warming up."</div>
+          </div>
+        </div>
+
+        <div class="yb-card">
+          <div class="yb-photo-placeholder">R</div>
+          <div class="yb-info">
+            <div class="yb-name">Rohan Mehta</div>
+            <div class="yb-role">Electronics</div>
+            <div class="yb-quote">"Sleep is a myth. So is giving up."</div>
+          </div>
+        </div>
+
+        <div class="yb-card">
+          <div class="yb-photo-placeholder">P</div>
+          <div class="yb-info">
+            <div class="yb-name">Priya Nair</div>
+            <div class="yb-role">Mechanical</div>
+            <div class="yb-quote">"I came here to study. I stayed for the people."</div>
+          </div>
+        </div>
+
+        <div class="yb-card">
+          <div class="yb-photo-placeholder">K</div>
+          <div class="yb-info">
+            <div class="yb-name">Karan Joshi</div>
+            <div class="yb-role">Civil Engineering</div>
+            <div class="yb-quote">"Built different — literally and figuratively."</div>
+          </div>
+        </div>
+
+        <div class="yb-card">
+          <div class="yb-photo-placeholder">S</div>
+          <div class="yb-info">
+            <div class="yb-name">Sana Patel</div>
+            <div class="yb-role">Information Tech</div>
+            <div class="yb-quote">"Ctrl+Z doesn't work in real life. Thank God."</div>
+          </div>
+        </div>
+
+        <div class="yb-card">
+          <div class="yb-photo-placeholder">V</div>
+          <div class="yb-info">
+            <div class="yb-name">Vikram Reddy</div>
+            <div class="yb-role">Electrical</div>
+            <div class="yb-quote">"Resistance is futile — and also very useful in circuits."</div>
+          </div>
+        </div>
+
+        <div class="yb-card">
+          <div class="yb-photo-placeholder">N</div>
+          <div class="yb-info">
+            <div class="yb-name">Nidhi Kapoor</div>
+            <div class="yb-role">Computer Science</div>
+            <div class="yb-quote">"She believed she could, so she debugged it."</div>
+          </div>
+        </div>
+
+        <div class="yb-card">
+          <div class="yb-photo-placeholder">A</div>
+          <div class="yb-info">
+            <div class="yb-name">Arjun Singh</div>
+            <div class="yb-role">Mechanical</div>
+            <div class="yb-quote">"Still figuring out what I want — and loving every second."</div>
+          </div>
+        </div>
+
+        <!-- Add more cards here -->
+      </div>
+      <p style="font-size:0.72rem; color:var(--text-dim); margin-top:1.5rem; letter-spacing:0.05em;">
+        Replace placeholder initials with &lt;img&gt; tags pointing to your photos. Add or remove cards as needed.
+      </p>
+    </div>
+    <div class="section-foot">Batch '26 · 2022–2026</div>
+  </div>
+
+  <!-- ─── MEDIA VAULT ─── -->
+  <div id="media" class="section-page">
+    <div class="section-header">
+      <div class="back-btn" onclick="closeSection('media')">←</div>
+      <div class="section-title-sm">Media Vault</div>
+    </div>
+    <div class="section-body">
+      <p class="media-intro">Every photo is a<br>memory we get to keep.</p>
+      <div class="media-grid">
+        <!-- Replace .media-placeholder divs with <img src="yourphoto.jpg"> inside .media-item -->
+        <div class="media-item"><div class="media-placeholder">Photo 1</div><div class="media-overlay">⊕</div></div>
+        <div class="media-item"><div class="media-placeholder">Photo 2</div><div class="media-overlay">⊕</div></div>
+        <div class="media-item"><div class="media-placeholder">Photo 3</div><div class="media-overlay">⊕</div></div>
+        <div class="media-item"><div class="media-placeholder">Photo 4</div><div class="media-overlay">⊕</div></div>
+        <div class="media-item"><div class="media-placeholder">Photo 5</div><div class="media-overlay">⊕</div></div>
+        <div class="media-item"><div class="media-placeholder">Photo 6</div><div class="media-overlay">⊕</div></div>
+        <div class="media-item"><div class="media-placeholder">Photo 7</div><div class="media-overlay">⊕</div></div>
+        <div class="media-item"><div class="media-placeholder">Photo 8</div><div class="media-overlay">⊕</div></div>
+        <div class="media-item"><div class="media-placeholder">Photo 9</div><div class="media-overlay">⊕</div></div>
+      </div>
+      <p style="font-size:0.72rem; color:var(--text-dim); margin-top:1.2rem; letter-spacing:0.05em;">
+        Replace "Photo N" placeholders with &lt;img src="..."&gt; tags. The grid layout auto-adjusts to any number of images.
+      </p>
+    </div>
+    <div class="section-foot">Batch '26 · 2022–2026</div>
+  </div>
+
+  <!-- ─── THE WALL ─── -->
+  <div id="wall" class="section-page">
+    <div class="section-header">
+      <div class="back-btn" onclick="closeSection('wall')">←</div>
+      <div class="section-title-sm">The Wall</div>
+    </div>
+    <div class="section-body">
+      <div class="wall-intro">
+        <h2>Words they left<br>on our hearts.</h2>
+        <p>Messages from juniors, faculty, and everyone whose life was touched by Batch '26.</p>
+      </div>
+      <div class="wall-messages">
+
+        <div class="wall-featured">
+          <div class="msg-text">You didn't just pass through this institution — you changed it. Every junior who walks these halls will feel your presence long after you're gone. That's not something every batch can say.</div>
+          <div class="msg-from">— <span>Prof. Anand Kumar</span>, Department Head</div>
+        </div>
+
+        <div class="wall-msg">
+          <div class="msg-text">You were the seniors we hoped to have. Patient, kind, always there at 2 AM when we were panicking before exams. Thank you for making us feel like we belonged here too.</div>
+          <div class="msg-from">— <span>Batch '27</span></div>
+        </div>
+
+        <div class="wall-msg">
+          <div class="msg-text">The way you all showed up for each other — through every failure and every win — taught me more about teamwork than any lecture ever could.</div>
+          <div class="msg-from">— <span>Deepa Ma'am</span>, Faculty</div>
+        </div>
+
+        <div class="wall-msg">
+          <div class="msg-text">We used to watch you seniors and think "will we ever be like them?" Now I realize the answer was never to be like you — it was to be inspired by you to become something of our own.</div>
+          <div class="msg-from">— <span>Batch '28</span></div>
+        </div>
+
+        <div class="wall-msg">
+          <div class="msg-text">The canteen isn't going to be the same. The corridors aren't going to be the same. Honestly, nothing is. And somehow, that feels like the highest compliment.</div>
+          <div class="msg-from">— <span>A junior who'll miss you</span></div>
+        </div>
+
+        <div class="wall-msg">
+          <div class="msg-text">Four years ago, you arrived. Today you leave — and the gap you leave behind is proof of how brilliantly you filled this space.</div>
+          <div class="msg-from">— <span>The Institution</span></div>
+        </div>
+
+        <!-- Add more messages here -->
+      </div>
+    </div>
+    <div class="section-foot">Batch '26 · 2022–2026</div>
+  </div>
+
+</div>
+
+<script>
+  function revealApp() {
+    document.getElementById('splash').classList.add('away');
+    setTimeout(() => {
+      document.getElementById('app').classList.add('visible');
+      document.getElementById('splash').style.display = 'none';
+    }, 900);
+  }
+
+  function openSection(id) {
+    document.getElementById('home').classList.add('hidden');
+    setTimeout(() => {
+      document.getElementById(id).classList.add('active');
+      document.getElementById(id).scrollTop = 0;
+    }, 200);
+  }
+
+  function closeSection(id) {
+    document.getElementById(id).classList.remove('active');
+    setTimeout(() => {
+      document.getElementById('home').classList.remove('hidden');
+    }, 200);
+  }
+
+  // Keyboard nav
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      ['journey','yearbook','media','wall'].forEach(id => {
+        if (document.getElementById(id).classList.contains('active')) {
+          closeSection(id);
+        }
+      });
+    }
+  });
+</script>
+</body>
+</html>
