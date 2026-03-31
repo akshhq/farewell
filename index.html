@@ -166,14 +166,52 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--text);font-fam
 
 /* media */
 .media-lead{font-family:var(--serif);font-size:clamp(1.6rem,4vw,2.5rem);font-weight:300;font-style:italic;line-height:1.2;margin-bottom:1.5rem}
-.media-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
-@media(max-width:480px){.media-grid{grid-template-columns:repeat(2,1fr)}}
-.mi{aspect-ratio:1;background:var(--bg3);overflow:hidden;position:relative;cursor:pointer;transition:opacity .2s}
+.media-grid {
+  column-count: 2;
+  column-gap: 10px;
+  padding: 0 1rem;
+}
+@media (min-width: 600px) {
+  .media-grid {
+    column-count: 2;
+  }
+}
+
+@media (min-width: 900px) {
+  .media-grid {
+    column-count: 3;
+  }
+}
+
+@media (min-width: 1200px) {
+  .media-grid {
+    column-count: 4;
+  }
+}
+.mi {
+  break-inside: avoid;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  overflow: hidden;
+}
 .mi:hover{opacity:.82}
 .mi-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:.63rem;letter-spacing:.15em;text-transform:uppercase;color:var(--dim)}
-.mi img {width:100%;height:100%;object-fit:cover;transition: transform .4s ease;}
-.mi:hover img {transform: scale(1.06);}
-.mi:nth-child(1),.mi:nth-child(5){grid-column:span 2}
+.mi img,
+.mi video {
+  width: 100%;
+  height: auto;   /* 🔥 keeps natural size */
+  display: block;
+  border-radius: 12px;
+}
+.mi img,
+.mi video {
+  transition: transform 0.4s ease;
+}
+
+.mi:hover img,
+.mi:hover video {
+  transform: scale(1.05);
+}
 
 /* wall */
 .wall-lead{font-family:var(--serif);font-size:clamp(1.6rem,4.5vw,2.8rem);font-weight:300;font-style:italic;line-height:1.2;margin-bottom:.6rem}
@@ -294,9 +332,11 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--text);font-fam
         </div>
 
         <div class="note">
-          <div class="note-txt">NOTE</div>
+          <div class="note-txt">You didn’t just lead Us, you survived us and honestly that’s your biggest achievement. I know it wasn’t easy dealing with this much talent (and nonsense).
+From deadlines to drama, you handled it all like pros (with a little panic, of course).
+Go out there and keep slaying, but don’t forget your favourite headache - Us</div>
           <div class="note-to">To · Batch '26</div>
-          <div class="note-from">— <span>""Best junior""</span></div>
+          <div class="note-from">— <span>""Best Teammate""</span></div>
         </div>
 
         <div class="note">
@@ -386,6 +426,8 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--text);font-fam
       <!-- Replace .mi-ph text with <img src="your.jpg"> inside each .mi -->
       <div class="media-grid">
         <div class="mi"><img src="IMG_2862.jpg"></div></div>
+        <div class="mi"><img src="IMG_2913.jpg"></div></div>
+
       </div>
     </div>
     <div class="pg-foot">Batch '26 · 2023–2026</div>
