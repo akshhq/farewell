@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Batch '26 - A Journey We'll Always Carry</title>
+<title>Batch '26 — A Journey We'll Always Carry</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
@@ -194,14 +194,16 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--text);font-fam
   border-radius: 12px;
   overflow: hidden;
 }
-.mi:hover{opacity:.82}
+.mi:hover{opacity:.95}
 .mi-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:.63rem;letter-spacing:.15em;text-transform:uppercase;color:var(--dim)}
 .mi img,
 .mi video {
-  width: 100%;
-  height: auto;   /* 🔥 keeps natural size */
+  width: 100%;        /* 🔥 fill full width */
+  height: auto;   /* you control height */
+  object-fit: cover;  /* 🔥 prevents distortion */
   display: block;
   border-radius: 12px;
+  overflow: hidden;
 }
 .mi img,
 .mi video {
@@ -280,7 +282,7 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--text);font-fam
              Duplicate the whole sr-card block to add more seniors -->
 
         <div class="sr-card">
-          <div class="sr-ph"><img src="kanishka.jpeg"></div>
+          <div class="sr-ph"><img src="pics/K12.jpeg"></div>
           <div class="sr-info">
             <div class="sr-name">Kanishka Rai</div>
             <div class="sr-dept">President</div>
@@ -289,7 +291,7 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--text);font-fam
         </div>
 
         <div class="sr-card">
-          <div class="sr-ph"><img src="anjali.jpeg"></div>
+          <div class="sr-ph"><img src="pics/A12.jpeg"></div>
           <div class="sr-info">
             <div class="sr-name">Anjali</div>
             <div class="sr-dept">Treasurer</div>
@@ -325,7 +327,7 @@ You’re truly the best seniors I could have asked for. Thank you for everything
         <div class="note">
           <div class="note-txt">NOTE</div>
           <div class="note-to">To · The leaders</div>
-          <div class="note-from">— <span>Ayushi</span></div>
+          <div class="note-from">— <span>Design Dictator</span></div>
         </div>
 
         <div class="note">
@@ -428,10 +430,33 @@ Go out there and keep slaying, but don’t forget your favourite headache - Us</
       <p class="media-lead">Every photo is a<br>memory we get to keep.</p>
       <!-- Replace .mi-ph text with <img src="your.jpg"> inside each .mi -->
       <div class="media-grid">
-        <div class="mi"><img src="IMG_2862.jpg"></div></div>
-        <div class="mi"><img src="IMG_2913.jpg"></div></div>
-
-      </div>
+        <div class="mi" style="--h: 250px;">
+          <img src="pics/G.jpg">
+        </div>
+        <div class="mi" style="--h: 400px;">
+          <img src="pics/KA6.jpeg">
+        </div>
+        <div class="mi" style="--h: 300px;">
+          <img src="pics/G2.jpg">
+        </div>
+        <div class="mi" style="--h: 250px;">
+          <img src="pics/A2.jpeg">
+        </div>
+        <div class="mi" style="--h: 400px;">
+          <img src="pics/KA2.jpeg">
+        </div>
+        <div class="mi" style="--h: 300px;">
+          <img src="pics/K4.jpeg">
+        </div><div class="mi" style="--h: 250px;">
+          <img src="pics/A5.jpeg">
+        </div>
+        <div class="mi" style="--h: 400px;">
+          <img src="pics/KA4.jpeg">
+        </div>
+        <div class="mi" style="--h: 300px;">
+          <img src="pics/KA8.jpeg">
+        </div>
+</div>
     </div>
     <div class="pg-foot">Batch '26 · 2023–2026</div>
   </div>
