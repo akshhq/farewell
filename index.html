@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Blitz Farewell'26</title>
+<title>Blitz Farewell '26</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --gold:#c9a84c;--gold-dim:#6b5520;--gold-faint:rgba(201,168,76,0.15);
+  --gold:#c9a84c;--gold-dim:#6b5520;
   --bg:#0c0a07;--bg2:#13100a;--bg3:#1c1610;
   --text:#f0e8d8;--muted:#9a8f7a;--dim:#5a5040;
   --border:rgba(201,168,76,0.18);
@@ -19,41 +19,26 @@
 }
 html,body{width:100%;height:100%;background:var(--bg);color:var(--text);font-family:var(--sans);overflow:hidden;-webkit-font-smoothing:antialiased}
 
-/* ──── LAYERS ──── */
+/* ── LAYERS ── */
 .layer{position:fixed;inset:0;transition:opacity .8s ease,transform .8s cubic-bezier(.22,1,.36,1)}
 .layer.hidden{opacity:0;pointer-events:none;transform:scale(1.03)}
 
 /* ══ SPLASH ══ */
 #splash{z-index:300;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer}
 .sp-rule{width:56px;height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent);margin-bottom:2rem;animation:fade 2s ease both}
-.sp-year{font-family:var(--serif);font-size:clamp(7rem,25vw,18rem);font-weight:300;line-height:.9;color:transparent;-webkit-text-stroke:1px var(--gold);animation:up 1s cubic-bezier(.22,1,.36,1) .1s both;letter-spacing: 0.05em;}
-.sp-year {text-shadow: 0 0 20px rgba(201,168,76,0.2);}
+.sp-year{font-family:var(--serif);font-size:clamp(7rem,25vw,18rem);font-weight:300;line-height:.9;color:transparent;-webkit-text-stroke:1px var(--gold);letter-spacing:.05em;text-shadow:0 0 20px rgba(201,168,76,0.2);animation:up 1s cubic-bezier(.22,1,.36,1) .1s both}
 .sp-sub{font-family:var(--serif);font-style:italic;font-size:clamp(1.2rem,3.5vw,1.8rem);font-weight:300;color:var(--muted);letter-spacing:.06em;margin-top:1.1rem;animation:up 1s ease .25s both}
 .sp-yrs{font-size:.9rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-dim);margin-top:.45rem;animation:up 1s ease .35s both}
 .sp-hint{position:absolute;bottom:clamp(2rem,5vw,3rem);font-size:.9rem;letter-spacing:.28em;text-transform:uppercase;color:var(--dim);animation:pulse 2.5s ease-in-out 2.2s infinite,fade 1.5s ease 1.2s both}
 
-/* ══ HOME ══ */
-#home{z-index:200;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;opacity:0;pointer-events:none}
-#home.show{opacity:1;pointer-events:all}
-.hm-glow{position:absolute;inset:0;background:radial-gradient(ellipse 80% 55% at 50% 105%,rgba(201,168,76,.07) 0%,transparent 65%);pointer-events:none}
-.hm-grid{position:absolute;inset:0;opacity:.022;background-image:repeating-linear-gradient(0deg,transparent,transparent 59px,var(--gold) 59px,var(--gold) 60px),repeating-linear-gradient(90deg,transparent,transparent 59px,var(--gold) 59px,var(--gold) 60px);pointer-events:none}
-.hm-body{text-align:center;position:relative;padding:0 2rem;animation:up .7s ease .05s both}
-.hm-eyebrow{font-size:.66rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:1.4rem}
-.hm-title{font-family:var(--serif);font-size:clamp(2.8rem,10vw,8rem);font-weight:300;line-height:1;letter-spacing:-.015em}
-.hm-title em{font-style:italic;color:var(--gold)}
-.hm-tagline{font-family:var(--serif);font-style:italic;font-size:clamp(.9rem,2.3vw,1.25rem);color:var(--muted);font-weight:300;margin-top:1.1rem}
-.hm-cta{display:inline-flex;align-items:center;gap:.6rem;margin-top:2.4rem;font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);animation:pulse 2.2s ease-in-out 1s infinite}
-.hm-cta::before,.hm-cta::after{content:'';display:block;width:26px;height:1px;background:var(--gold-dim)}
-
-/* ══ APP SHELL ══ */
+/* ══ APP ══ */
 #app{z-index:100;overflow:hidden;opacity:0;pointer-events:none}
 #app.show{opacity:1;pointer-events:all}
 
 /* TOP NAV */
-.topnav{position:sticky;top:0;left:0;right:0;height:50px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(1rem,4vw,2rem);background:rgba(12,10,7,.9);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:.5px solid var(--border);z-index:100}
+.topnav{position:sticky;top:0;height:50px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(1rem,4vw,2rem);background:rgba(12,10,7,.9);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:.5px solid var(--border);z-index:100}
 .tn-logo{font-family:var(--serif);font-size:1.1rem;font-weight:500;color:var(--gold);cursor:pointer;-webkit-tap-highlight-color:transparent}
-.tn-links{display:flex;align-items:center;gap:clamp(.5rem,2vw,1.4rem)}
-.tn-link{font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);cursor:pointer;padding:.25rem 0;border-bottom:1px solid transparent;transition:color .2s,border-color .2s;-webkit-tap-highlight-color:transparent;white-space:nowrap}
+.tn-link{font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);cursor:pointer;padding:.25rem 0;border-bottom:1px solid transparent;transition:color .2s,border-color .2s;-webkit-tap-highlight-color:transparent}
 .tn-link:hover,.tn-link.on{color:var(--gold);border-bottom-color:var(--gold)}
 
 /* PAGE CONTAINERS */
@@ -77,8 +62,8 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--text);font-fam
 .sr-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,148px),1fr));gap:clamp(.65rem,1.8vw,.95rem)}
 .sr-card{background:var(--bg2);border:.5px solid var(--border);border-radius:3px;overflow:hidden;transition:transform .25s,border-color .25s;animation:up .5s ease both}
 .sr-card:hover{transform:translateY(-4px);border-color:rgba(201,168,76,.4)}
-.sr-ph{width:100%;aspect-ratio:3/4;background:var(--bg3);display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden}
-.sr-ph::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,168,76,.06) 0%,transparent 65%)}
+.sr-ph{width:100%;aspect-ratio:3/4;background:var(--bg3);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.sr-ph::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,168,76,.06) 0%,transparent 65%);pointer-events:none}
 .sr-ph img{width:100%;height:100%;object-fit:cover;display:block}
 .sr-init{font-family:var(--serif);font-size:clamp(2rem,6vw,2.8rem);font-weight:300;color:var(--gold-dim);line-height:1}
 .sr-info{padding:.65rem .75rem .8rem}
@@ -86,11 +71,8 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--text);font-fam
 .sr-dept{font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:.4rem}
 .sr-quote{font-family:var(--serif);font-style:italic;font-size:.72rem;color:var(--muted);line-height:1.5}
 
-/* stagger cards */
-.sr-card:nth-child(1){animation-delay:.04s}.sr-card:nth-child(2){animation-delay:.08s}.sr-card:nth-child(3){animation-delay:.12s}
-.sr-card:nth-child(4){animation-delay:.16s}.sr-card:nth-child(5){animation-delay:.20s}.sr-card:nth-child(6){animation-delay:.24s}
-.sr-card:nth-child(7){animation-delay:.28s}.sr-card:nth-child(8){animation-delay:.32s}.sr-card:nth-child(9){animation-delay:.36s}
-.sr-card:nth-child(10){animation-delay:.40s}.sr-card:nth-child(11){animation-delay:.44s}.sr-card:nth-child(12){animation-delay:.48s}
+.sr-card:nth-child(1){animation-delay:.04s}.sr-card:nth-child(2){animation-delay:.08s}
+.sr-card:nth-child(3){animation-delay:.12s}.sr-card:nth-child(4){animation-delay:.16s}
 
 /* notes */
 .notes-wrap{padding:clamp(1.5rem,4vw,2.5rem) clamp(1.2rem,5vw,3rem) clamp(3rem,7vw,5rem);background:var(--bg2);border-top:.5px solid var(--border)}
@@ -100,137 +82,32 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--text);font-fam
 .note::before{content:'\201C';position:absolute;top:-.9rem;left:.75rem;font-family:var(--serif);font-size:5rem;color:rgba(201,168,76,.06);line-height:1;pointer-events:none}
 .note.big{grid-column:1/-1;border-color:rgba(201,168,76,.28)}
 .note.big::before{font-size:8rem;top:-1.5rem}
-.note-txt{font-family:var(--serif);font-size:clamp(.88rem,2vw,.97rem);font-weight:300;line-height:1.78;color:var(--text);margin-bottom:.95rem;position:relative}
+.note-txt{font-family:var(--serif);font-size:clamp(.88rem,2vw,.97rem);font-weight:300;line-height:1.78;color:var(--text);margin-bottom:.95rem;position:relative;white-space:pre-line}
 .note.big .note-txt{font-size:clamp(.98rem,2.8vw,1.32rem);font-style:italic}
 .note-to{font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);margin-bottom:.18rem}
 .note-from{font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-dim)}
 .note-from span{color:var(--gold)}
 .note:nth-child(2){animation-delay:.07s}.note:nth-child(3){animation-delay:.13s}.note:nth-child(4){animation-delay:.19s}
 .note:nth-child(5){animation-delay:.25s}.note:nth-child(6){animation-delay:.31s}.note:nth-child(7){animation-delay:.37s}
-
-/* ══ SECTION PAGES ══ */
-.sec-hdr {
-  display:flex;
-  align-items:center;
-  gap:.9rem;
-  padding:1.5rem 1.5rem 0;
-  
-  position:relative; /* remove sticky */
-  background:transparent; /* remove bar */
-  border:none;
-  
-}
-.sec-back {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  cursor: pointer;
-
-  font-family: var(--serif);
-  font-size: 1.1rem;
-  color: var(--text);
-
-  border: none;
-  background: none;
-  padding: 0;
-
-  transition: color 0.2s ease;
-}
-.sec-back:hover {
-  color: var(--gold);
-}
-.sec-title{font-family:var(--serif);font-size:clamp(.95rem,2.5vw,1.3rem);font-weight:400}
-.sec-body{padding:clamp(1.5rem,4vw,2.5rem) clamp(1.2rem,4vw,2.5rem);padding-top: 1rem;}
-
-/* journey */
-.jlead{font-family:var(--serif);font-size:clamp(1.8rem,5vw,3rem);font-weight:300;font-style:italic;line-height:1.2;margin-bottom:.8rem}
-.jlead-sub{font-size:.82rem;color:var(--muted);line-height:1.8;max-width:520px;margin-bottom:3rem}
-.tl{position:relative;padding-left:clamp(1.5rem,4vw,2.5rem)}
-.tl::before{content:'';position:absolute;left:0;top:8px;bottom:0;width:1px;background:linear-gradient(to bottom,var(--gold),rgba(201,168,76,.05) 92%)}
-.tli{position:relative;margin-bottom:clamp(2rem,5vw,3.5rem)}
-.tli::before{content:'';position:absolute;left:calc(-1 * clamp(1.5rem,4vw,2.5rem) - 4px);top:6px;width:9px;height:9px;border-radius:50%;background:var(--bg);border:1.5px solid var(--gold)}
-.tl-yr{font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.4rem}
-.tl-hd{font-family:var(--serif);font-size:clamp(1.1rem,3vw,1.5rem);font-weight:400;margin-bottom:.4rem}
-.tl-bd{font-size:.82rem;color:var(--muted);line-height:1.78;max-width:520px}
-
-/* yearbook */
-.yb-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,170px),1fr));gap:clamp(.7rem,1.8vw,1rem)}
-.yb-card{background:var(--bg2);border:.5px solid var(--border);border-radius:3px;overflow:hidden;transition:transform .25s,border-color .25s}
-.yb-card:hover{transform:translateY(-3px);border-color:rgba(201,168,76,.4)}
-.yb-ph{width:100%;aspect-ratio:3/4;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:2.8rem;font-weight:300;color:var(--dim);overflow:hidden;position:relative}
-.yb-ph::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,168,76,.05) 0%,transparent 70%)}
-.yb-info{padding:.7rem .8rem .85rem}
-.yb-name{font-family:var(--serif);font-size:1rem;font-weight:400;margin-bottom:.15rem}
-.yb-role{font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:.45rem}
-.yb-quote{font-family:var(--serif);font-style:italic;font-size:.73rem;color:var(--muted);line-height:1.5}
-
-/* media */
-.media-lead{font-family:var(--serif);font-size:clamp(1.6rem,4vw,2.5rem);font-weight:300;font-style:italic;line-height:1.2;margin-bottom:1.5rem}
-.media-grid {
-  column-count: 2;
-  column-gap: 10px;
-  padding: 0 1rem;
-}
-@media (min-width: 600px) {
-  .media-grid {
-    column-count: 2;
-  }
-}
-
-@media (min-width: 900px) {
-  .media-grid {
-    column-count: 3;
-  }
-}
-
-@media (min-width: 1200px) {
-  .media-grid {
-    column-count: 4;
-  }
-}
-.mi {
-  break-inside: avoid;
-  margin-bottom: 10px;
-  border-radius: 12px;
-  overflow: hidden;
-}
-.mi:hover{opacity:.95}
-.mi-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:.63rem;letter-spacing:.15em;text-transform:uppercase;color:var(--dim)}
-.mi img,
-.mi video {
-  width: 100%;        /* 🔥 fill full width */
-  height: auto;   /* you control height */
-  object-fit: cover;  /* 🔥 prevents distortion */
-  display: block;
-  border-radius: 12px;
-  overflow: hidden;
-}
-.mi img,
-.mi video {
-  transition: transform 0.4s ease;
-}
-
-.mi:hover img,
-.mi:hover video {
-  transform: scale(1.05);
-}
-
-/* wall */
-.wall-lead{font-family:var(--serif);font-size:clamp(1.6rem,4.5vw,2.8rem);font-weight:300;font-style:italic;line-height:1.2;margin-bottom:.6rem}
-.wall-sub{font-size:.82rem;color:var(--muted);line-height:1.8;max-width:500px;margin-bottom:2rem}
-.wall-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,265px),1fr));gap:clamp(.7rem,1.8vw,1rem)}
-.wm{background:var(--bg2);border:.5px solid var(--border);border-radius:3px;padding:1.15rem 1.25rem;position:relative;overflow:hidden;transition:border-color .25s}
-.wm:hover{border-color:rgba(201,168,76,.35)}
-.wm::before{content:'\201C';position:absolute;top:-.9rem;left:.75rem;font-family:var(--serif);font-size:5rem;color:rgba(201,168,76,.06);line-height:1;pointer-events:none}
-.wm.feat{border-color:rgba(201,168,76,.3)}
-.wm.feat::before{font-size:8rem;top:-1.5rem}
-.wm-txt{font-family:var(--serif);font-size:clamp(.88rem,2vw,.98rem);font-weight:300;line-height:1.75;color:var(--text);margin-bottom:.95rem;position:relative}
-.wm.feat .wm-txt{font-size:clamp(1rem,2.8vw,1.32rem);font-style:italic}
-.wm-from{font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-dim)}
-.wm-from span{color:var(--gold)}
+.note:nth-child(8){animation-delay:.43s}
 
 /* foot */
 .pg-foot{padding:2rem 0 .5rem;text-align:center;font-size:.63rem;letter-spacing:.2em;text-transform:uppercase;color:var(--dim)}
+
+/* ══ MEDIA VAULT ══ */
+.sec-hdr{display:flex;align-items:center;gap:.9rem;padding:1.5rem 1.5rem 0}
+.sec-back{display:inline-flex;align-items:center;gap:.6rem;cursor:pointer;font-family:var(--serif);font-size:1.1rem;color:var(--text);border:none;background:none;padding:0;transition:color .2s ease}
+.sec-back:hover{color:var(--gold)}
+.sec-title{font-family:var(--serif);font-size:clamp(.95rem,2.5vw,1.3rem);font-weight:400}
+.sec-body{padding:clamp(1.5rem,4vw,2.5rem) clamp(1.2rem,4vw,2.5rem);padding-top:1rem}
+.media-lead{font-family:var(--serif);font-size:clamp(1.6rem,4vw,2.5rem);font-weight:300;font-style:italic;line-height:1.2;margin-bottom:1.5rem}
+.media-grid{column-count:2;column-gap:10px;padding:0 1rem}
+@media(min-width:900px){.media-grid{column-count:3}}
+@media(min-width:1200px){.media-grid{column-count:4}}
+.mi{break-inside:avoid;margin-bottom:10px;border-radius:12px;overflow:hidden}
+.mi-ph{padding:3rem 1rem;display:flex;align-items:center;justify-content:center;background:var(--bg3);font-size:.63rem;letter-spacing:.15em;text-transform:uppercase;color:var(--dim);border-radius:12px}
+.mi img,.mi video{width:100%;height:auto;object-fit:cover;display:block;border-radius:12px;transition:transform .4s ease}
+.mi:hover img,.mi:hover video{transform:scale(1.05)}
 
 /* keyframes */
 @keyframes up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
@@ -251,15 +128,12 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--text);font-fam
   <div class="sp-hint">tap anywhere to begin</div>
 </div>
 
-
 <!-- ═══ APP ═══ -->
 <div id="app" class="layer">
 
   <nav class="topnav">
     <div class="tn-logo" onclick="showPg('seniors')">Blitz</div>
-    <div class="tn-links">
-      <div class="tn-link" id="tl-media"    onclick="showPg('media')">Media Vault</div>
-    </div>
+    <div class="tn-link" id="tl-media" onclick="showPg('media')">Media Vault</div>
   </nav>
 
   <!-- ──── SENIORS + NOTES ──── -->
@@ -271,22 +145,16 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--text);font-fam
       <p class="pg-byline">Three years of late nights, laughter, and building — meet Batch '26.</p>
     </div>
 
-    <!-- SENIORS -->
     <div class="sr-wrap">
       <div class="slabel">Our seniors</div>
       <div class="sr-grid">
-
-        <!-- ╔═ HOW TO ADD PHOTOS ═╗
-             Replace <div class="sr-ph"><span class="sr-init">X</span></div>
-             with    <div class="sr-ph"><img src="photo.jpg"></div>
-             Duplicate the whole sr-card block to add more seniors -->
 
         <div class="sr-card">
           <div class="sr-ph"><img src="pics/K12.jpeg"></div>
           <div class="sr-info">
             <div class="sr-name">Kanishka Rai</div>
             <div class="sr-dept">President</div>
-            <div class="sr-quote">"I didn't just build structures. I built bonds."</div>
+            <div class="sr-quote">"This society has given me genuine set of juniors and seniors. The one I heard from people."</div>
           </div>
         </div>
 
@@ -299,27 +167,28 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--text);font-fam
           </div>
         </div>
 
-      </div><!-- /sr-grid -->
-    </div><!-- /sr-wrap -->
+        <!-- Add more sr-card blocks here for additional seniors -->
 
-    <!-- JUNIOR NOTES -->
+      </div>
+    </div>
+
     <div class="notes-wrap">
       <div class="slabel">Notes from the juniors</div>
       <div class="notes-grid">
 
-        <!-- ╔═ ADD MORE NOTES ═╗ Duplicate a .note block below -->
-
         <div class="note big">
-          <div class="note-txt">You didn't just pass through these halls — you changed them. Every junior walking in next year will feel your presence without ever having met you. That, more than anything, is the mark of a great batch.</div>
-          <div class="note-to">To · Batch '26</div>
+          <div class="note-txt">Working with you never felt like just society work; it became something we truly enjoyed.
+
+Through all the chaos, deadlines, and memories, you led us, supported us, and made everything worthwhile. You were more than a senior. You were guilds, teammates, and constant support. Thank you for everything you built and for always having our backs.
+
+We’ll truly miss you. Wishing you all the success and happiness ahead 💛</div>
           <div class="note-from">— <span>Juniors, collectively</span></div>
         </div>
 
         <div class="note">
-          <div class="note-txt">Working with you both never felt like just society work it became something I genuinely enjoyed. I built a bond with you beyond all of that, and I’ll always value it.
+          <div class="note-txt">Working with you both never felt like just society work it became something I genuinely enjoyed. I built a bond with you beyond all of that, and I'll always value it.
 
-You’re truly the best seniors I could have asked for. Thank you for everything ❤️
-</div>
+You're truly the best seniors I could have asked for. Thank you for everything ❤️</div>
           <div class="note-to">To · The leaders</div>
           <div class="note-from">— <span>Scooty guy</span></div>
         </div>
@@ -337,9 +206,9 @@ You’re truly the best seniors I could have asked for. Thank you for everything
         </div>
 
         <div class="note">
-          <div class="note-txt">You didn’t just lead Us, you survived us and honestly that’s your biggest achievement. I know it wasn’t easy dealing with this much talent (and nonsense).
+          <div class="note-txt">You didn't just lead Us, you survived us and honestly that's your biggest achievement. I know it wasn't easy dealing with this much talent (and nonsense).
 From deadlines to drama, you handled it all like pros (with a little panic, of course).
-Go out there and keep slaying, but don’t forget your favourite headache - Us</div>
+Go out there and keep slaying, but don't forget your favourite headache - Us</div>
           <div class="note-to">To · The leaders</div>
           <div class="note-from">— <span>""Best Teammate""</span></div>
         </div>
@@ -360,342 +229,121 @@ Take care and all the best ahead!</div>
 
         <div class="note">
           <div class="note-txt">always, with love—
-you’ve been more than just seniors, you’ve felt like big sisters—helping us, guiding us, and being there when we needed it. thank you for your advice, your patience, and all the small things that made a difference. we’ll miss you, but we’ll always remember what we learned from you.</div>
+you've been more than just seniors, you've felt like big sisters—helping us, guiding us, and being there when we needed it. thank you for your advice, your patience, and all the small things that made a difference. we'll miss you, but we'll always remember what we learned from you.</div>
           <div class="note-to">To · The leaders</div>
           <div class="note-from">— <span>Lavanya</span></div>
         </div>
 
-      </div><!-- /notes-grid -->
-    </div><!-- /notes-wrap -->
+        <!-- Add more note blocks here -->
+
+      </div>
+    </div>
 
     <div class="pg-foot">Batch '26 · 2023–2026 · Always in our hearts</div>
-  </div><!-- /pg-seniors -->
-
-  <!-- ──── THE JOURNEY ──── -->
-  <div class="pg" id="pg-journey">
-    <div class="sec-hdr">
-      <div class="sec-back" onclick="showPg('seniors')">←</div>
-      <div class="sec-title">The Journey</div>
-    </div>
-    <div class="sec-body">
-      <p class="jlead">Three years of<br>becoming.</p>
-      <p class="jlead-sub">From strangers on the first day to the people who shaped this place — here is the story of Batch '26, told in the moments that mattered most.</p>
-      <div class="tl">
-        <div class="tli">
-          <div class="tl-yr">2023 — Year I</div>
-          <div class="tl-hd">The Beginning</div>
-          <p class="tl-bd">Nervous, wide-eyed, and figuring it all out together. The first year was chaos, caffeine, and the slow realisation that everyone was just as lost — and that made it beautiful. Strangers walked in through those gates. Something else walked out at the end of Year I.</p>
-        </div>
-        <div class="tli">
-          <div class="tl-yr">2024 — Year II</div>
-          <div class="tl-hd">Finding Ground</div>
-          <p class="tl-bd">Confidence arrived alongside competition. Late nights in the common room, friendships forged over shared deadlines, the first big wins — and the losses that quietly taught more than any lecture could. The batch found its voice in Year II.</p>
-        </div>
-        <div class="tli">
-          <div class="tl-yr">2025–26 — Year III</div>
-          <div class="tl-hd">The Final Chapter</div>
-          <p class="tl-bd">They savoured every ordinary day knowing it was extraordinary. Led with grace, loved without reservation, and walked out — not as students, but as people ready to change the world. The last chapter was the best one.</p>
-        </div>
-      </div>
-    </div>
-    <div class="pg-foot">Batch '26 · 2023–2026</div>
-  </div>
-
-  <!-- ──── YEARBOOK ──── -->
-  <div class="pg" id="pg-yearbook">
-    <div class="sec-hdr">
-      <div class="sec-back" onclick="showPg('seniors')">←</div>
-      <div class="sec-title">Yearbook</div>
-    </div>
-    <div class="sec-body">
-      <div class="yb-grid">
-        <div class="yb-card"><div class="yb-ph">A</div><div class="yb-info"><div class="yb-name">Aanya Sharma</div><div class="yb-role">Computer Science</div><div class="yb-quote">"The best is yet to come — I'm just warming up."</div></div></div>
-        <div class="yb-card"><div class="yb-ph">R</div><div class="yb-info"><div class="yb-name">Rohan Mehta</div><div class="yb-role">Electronics</div><div class="yb-quote">"Sleep is a myth. So is giving up."</div></div></div>
-        <div class="yb-card"><div class="yb-ph">P</div><div class="yb-info"><div class="yb-name">Priya Nair</div><div class="yb-role">Mechanical</div><div class="yb-quote">"I came here to study. I stayed for the people."</div></div></div>
-        <div class="yb-card"><div class="yb-ph">K</div><div class="yb-info"><div class="yb-name">Karan Joshi</div><div class="yb-role">Civil Engineering</div><div class="yb-quote">"Built different — literally and figuratively."</div></div></div>
-        <div class="yb-card"><div class="yb-ph">S</div><div class="yb-info"><div class="yb-name">Sana Patel</div><div class="yb-role">Information Tech</div><div class="yb-quote">"Ctrl+Z doesn't work in real life. Thank God."</div></div></div>
-        <div class="yb-card"><div class="yb-ph">V</div><div class="yb-info"><div class="yb-name">Vikram Reddy</div><div class="yb-role">Electrical</div><div class="yb-quote">"Resistance is futile — and very useful in circuits."</div></div></div>
-        <div class="yb-card"><div class="yb-ph">N</div><div class="yb-info"><div class="yb-name">Nidhi Kapoor</div><div class="yb-role">Computer Science</div><div class="yb-quote">"She believed she could, so she debugged it."</div></div></div>
-        <div class="yb-card"><div class="yb-ph">A</div><div class="yb-info"><div class="yb-name">Arjun Singh</div><div class="yb-role">Mechanical</div><div class="yb-quote">"Still figuring out what I want — and loving it."</div></div></div>
-      </div>
-    </div>
-    <div class="pg-foot">Batch '26 · 2023–2026</div>
   </div>
 
   <!-- ──── MEDIA VAULT ──── -->
   <div class="pg" id="pg-media">
     <div class="sec-hdr">
       <div class="sec-back" onclick="showPg('seniors')">
-      ← <span class="sec-title">Media Vault</span>
+        ← <span class="sec-title">Media Vault</span>
       </div>
     </div>
     <div class="sec-body">
       <p class="media-lead">Every photo is a<br>memory we get to keep.</p>
-      <!-- Replace .mi-ph text with <img src="your.jpg"> inside each .mi -->
       <div class="media-grid">
-        <div class="mi" style="--h: 320px;">
-          <img src="pics/G.jpg">
-        </div>
-
-        <div class="mi" style="--h: 260px;">
-          <img src="pics/A1.jpeg">
-        </div>
-
-        <div class="mi" style="--h: 400px;">
-          <img src="pics/K1.jpeg">
-        </div>
-
-        <div class="mi" style="--h: 280px;">
-          <img src="pics/KA1.jpeg">
-        </div>
-
-        <div class="mi" style="--h: 350px;">
-          <img src="pics/A2.jpeg">
-        </div>
-
-        <div class="mi" style="--h: 300px;">
-          <img src="pics/K2.jpeg">
-        </div>
-
-        <div class="mi" style="--h: 420px;">
-          <img src="pics/G1.jpg">
-        </div>
-
-        <div class="mi" style="--h: 260px;">
-          <img src="pics/KA2.jpeg">
-        </div>
-
-        <div class="mi" style="--h: 330px;">
-          <img src="pics/A3.jpeg">
-        </div>
-
-        <div class="mi" style="--h: 300px;">
-          <img src="pics/K3.jpeg">
-        </div>
-
-        <div class="mi" style="--h: 370px;">
-          <img src="pics/KA3.jpeg">
-        </div>
-
-        <div class="mi" style="--h: 250px;">
-          <img src="pics/A4.jpeg">
-        </div>
-
-        <div class="mi" style="--h: 420px;">
-          <img src="pics/G2.jpg">
-        </div>
-
-        <div class="mi" style="--h: 280px;">
-          <img src="pics/K4.jpeg">
-        </div>
-
-        <div class="mi" style="--h: 340px;">
-          <img src="pics/KA4.jpeg">
-        </div>
-
-        <div class="mi" style="--h: 260px;">
-          <img src="pics/A5.jpeg">
-        </div>
-
-        <div class="mi" style="--h: 360px;">
-          <img src="pics/K5.jpeg">
-        </div>
-
-        <div class="mi" style="--h: 300px;">
-          <img src="pics/KA5.jpeg">
-        </div>
-
-        <div class="mi" style="--h: 400px;">
-          <img src="pics/A6.jpeg">
-        </div>
-
-        <div class="mi" style="--h: 280px;">
-          <img src="pics/K6.jpeg">
-        </div>
-
-        <div class="mi" style="--h: 350px;">
-          <img src="pics/KA6.jpeg">
-        </div>
-
-        <div class="mi" style="--h: 260px;">
-          <img src="pics/A7.jpeg">
-        </div>
-
-        <div class="mi" style="--h: 370px;">
-          <img src="pics/K7.jpeg">
-        </div>
-
-        <div class="mi" style="--h: 300px;">
-          <img src="pics/KA7.jpeg">
-        </div>
-
-        <div class="mi" style="--h: 420px;">
-          <img src="pics/G3.jpg">
-        </div>
-
-        <div class="mi" style="--h: 260px;">
-          <img src="pics/A8.jpeg">
-        </div>
-
-        <div class="mi" style="--h: 340px;">
-          <img src="pics/K8.jpeg">
-        </div>
-
-        <div class="mi" style="--h: 300px;">
-          <img src="pics/KA8.jpeg">
-        </div>
-
-        <div class="mi" style="--h: 260px;">
-          <img src="pics/K9.jpeg">
-        </div>
-
-        <div class="mi" style="--h: 350px;">
-          <img src="pics/KA9.jpeg">
-        </div>
-
-        <div class="mi" style="--h: 300px;">
-          <img src="pics/A10.jpeg">
-        </div>
-
-        <div class="mi" style="--h: 400px;">
-          <img src="pics/K10.jpeg">
-        </div>
-
-        <div class="mi" style="--h: 260px;">
-          <img src="pics/A11.jpeg">
-        </div>
-
-        <div class="mi" style="--h: 340px;">
-          <img src="pics/K11.jpeg">
-        </div>
-
-        <div class="mi" style="--h: 300px;">
-          <img src="pics/KA10.jpeg">
-        </div>
-
-        <div class="mi" style="--h: 380px;">
-          <img src="pics/A12.jpeg">
-        </div>
-
-        <div class="mi" style="--h: 260px;">
-          <img src="pics/K12.jpeg">
-        </div>
-
-        <div class="mi" style="--h: 330px;">
-          <img src="pics/A13.jpeg">
-        </div>
-
-        <div class="mi" style="--h: 300px;">
-          <img src="pics/K13.jpeg">
-        </div>
-
-        <div class="mi" style="--h: 360px;">
-          <img src="pics/A14.jpeg">
-        </div>
-
-        <div class="mi" style="--h: 260px;">
-          <img src="pics/K14.jpeg">
-        </div>
-
-        <div class="mi" style="--h: 350px;">
-          <img src="pics/A15.jpeg">
-        </div>
-
-        <div class="mi" style="--h: 300px;">
-          <img src="pics/K15.jpeg">
-        </div>
-
-        <div class="mi" style="--h: 380px;">
-          <img src="pics/A16.jpeg">
-        </div>
-
-        <div class="mi" style="--h: 260px;">
-          <img src="pics/K16.jpeg">
-        </div>
-
-        <div class="mi" style="--h: 340px;">
-          <img src="pics/K17.jpeg">
-        </div>
-</div>
-    </div>
-    <div class="pg-foot">Batch '26 · 2023–2026</div>
-  </div>
-
-  <!-- ──── THE WALL ──── -->
-  <div class="pg" id="pg-wall">
-    <div class="sec-hdr">
-      <div class="sec-back" onclick="showPg('seniors')">←</div>
-      <div class="sec-title">The Wall</div>
-    </div>
-    <div class="sec-body">
-      <p class="wall-lead">Words they left<br>on our hearts.</p>
-      <p class="wall-sub">Messages from faculty, juniors, and everyone whose life was touched by Batch '26.</p>
-      <div class="wall-grid">
-        <div class="wm feat">
-          <div class="wm-txt">You didn't just pass through this institution — you changed it. Every junior who walks these halls will feel your presence long after you're gone. That's not something every batch can say.</div>
-          <div class="wm-from">— <span>Prof. Anand Kumar</span>, Department Head</div>
-        </div>
-        <div class="wm"><div class="wm-txt">You were the seniors we hoped to have. Patient, kind, always there at 2 AM when we panicked before exams. Thank you for making us feel like we belonged here too.</div><div class="wm-from">— <span>Batch '27</span></div></div>
-        <div class="wm"><div class="wm-txt">The way you showed up for each other — through every failure and every win — taught me more about teamwork than any lecture ever could.</div><div class="wm-from">— <span>Deepa Ma'am</span>, Faculty</div></div>
-        <div class="wm"><div class="wm-txt">We used to watch you and think "will we ever be like them?" Now I realise the answer was never to be like you — it was to be inspired by you.</div><div class="wm-from">— <span>Batch '28</span></div></div>
-        <div class="wm"><div class="wm-txt">The canteen isn't going to be the same. The corridors aren't going to be the same. Nothing is — and somehow that feels like the highest compliment.</div><div class="wm-from">— <span>A junior who'll miss you</span></div></div>
+        <div class="mi"><img src="pics/G.jpg"></div>
+        <div class="mi"><img src="pics/A1.jpeg"></div>
+        <div class="mi"><img src="pics/K1.jpeg"></div>
+        <div class="mi"><img src="pics/KA1.jpeg"></div>
+        <div class="mi"><img src="pics/A2.jpeg"></div>
+        <div class="mi"><img src="pics/K2.jpeg"></div>
+        <div class="mi"><img src="pics/G1.jpg"></div>
+        <div class="mi"><img src="pics/KA2.jpeg"></div>
+        <div class="mi"><img src="pics/A3.jpeg"></div>
+        <div class="mi"><img src="pics/K3.jpeg"></div>
+        <div class="mi"><img src="pics/KA3.jpeg"></div>
+        <div class="mi"><img src="pics/A4.jpeg"></div>
+        <div class="mi"><img src="pics/G2.jpg"></div>
+        <div class="mi"><img src="pics/K4.jpeg"></div>
+        <div class="mi"><img src="pics/KA4.jpeg"></div>
+        <div class="mi"><img src="pics/A5.jpeg"></div>
+        <div class="mi"><img src="pics/K5.jpeg"></div>
+        <div class="mi"><img src="pics/KA5.jpeg"></div>
+        <div class="mi"><img src="pics/A6.jpeg"></div>
+        <div class="mi"><img src="pics/K6.jpeg"></div>
+        <div class="mi"><img src="pics/KA6.jpeg"></div>
+        <div class="mi"><img src="pics/A7.jpeg"></div>
+        <div class="mi"><img src="pics/K7.jpeg"></div>
+        <div class="mi"><img src="pics/KA7.jpeg"></div>
+        <div class="mi"><img src="pics/G3.jpg"></div>
+        <div class="mi"><img src="pics/A8.jpeg"></div>
+        <div class="mi"><img src="pics/K8.jpeg"></div>
+        <div class="mi"><img src="pics/KA8.jpeg"></div>
+        <div class="mi"><img src="pics/K9.jpeg"></div>
+        <div class="mi"><img src="pics/KA9.jpeg"></div>
+        <div class="mi"><img src="pics/A10.jpeg"></div>
+        <div class="mi"><img src="pics/K10.jpeg"></div>
+        <div class="mi"><img src="pics/A11.jpeg"></div>
+        <div class="mi"><img src="pics/K11.jpeg"></div>
+        <div class="mi"><img src="pics/KA10.jpeg"></div>
+        <div class="mi"><img src="pics/A12.jpeg"></div>
+        <div class="mi"><img src="pics/K12.jpeg"></div>
+        <div class="mi"><img src="pics/A13.jpeg"></div>
+        <div class="mi"><img src="pics/K13.jpeg"></div>
+        <div class="mi"><img src="pics/A14.jpeg"></div>
+        <div class="mi"><img src="pics/K14.jpeg"></div>
+        <div class="mi"><img src="pics/A15.jpeg"></div>
+        <div class="mi"><img src="pics/K15.jpeg"></div>
+        <div class="mi"><img src="pics/A16.jpeg"></div>
+        <div class="mi"><img src="pics/K16.jpeg"></div>
+        <div class="mi"><img src="pics/K17.jpeg"></div>
       </div>
     </div>
     <div class="pg-foot">Batch '26 · 2023–2026</div>
   </div>
 
-</div><!-- /app -->
+</div>
 
 <script>
-const PGS = ['seniors','journey','yearbook','media','wall'];
-
-function splashTap(){
+function splashTap() {
   const sp = document.getElementById('splash');
   sp.classList.add('hidden');
-  setTimeout(()=>{ sp.style.display='none'; showHome(); },820);
+  setTimeout(() => {
+    sp.style.display = 'none';
+    openApp();
+  }, 820);
 }
 
-function splashTap(){
-  const sp = document.getElementById('splash');
-  sp.classList.add('hidden');
-  setTimeout(()=>{ 
-    sp.style.display='none'; 
-    openApp();   // 🔥 directly open app
-  },820);
-}
-
-function homeTap(){
-  const hm = document.getElementById('home');
-  hm.style.transition='opacity .6s ease, transform .6s ease';
-  hm.style.opacity='0'; hm.style.transform='scale(.97)'; hm.style.pointerEvents='none';
-  setTimeout(()=>{ hm.style.display='none'; openApp(); },600);
-}
-
-function openApp(){
+function openApp() {
   const app = document.getElementById('app');
-  app.style.opacity='0'; app.style.pointerEvents='none'; app.style.display='block';
-  requestAnimationFrame(()=>{
-    app.style.transition='opacity .7s ease';
-    app.style.opacity='1'; app.style.pointerEvents='all';
+  app.style.opacity = '0';
+  app.style.pointerEvents = 'none';
+  app.style.display = 'block';
+  requestAnimationFrame(() => {
+    app.style.transition = 'opacity .7s ease';
+    app.style.opacity = '1';
+    app.style.pointerEvents = 'all';
     showPg('seniors');
   });
 }
 
-function showPg(name){
-  PGS.forEach(p=>{
-    const el = document.getElementById('pg-'+p);
-    el.classList.remove('on');
-    const tl = document.getElementById('tl-'+p);
-    if(tl) tl.classList.remove('on');
+function showPg(name) {
+  ['seniors', 'media'].forEach(p => {
+    document.getElementById('pg-' + p).classList.remove('on');
   });
-  const pg = document.getElementById('pg-'+name);
-  pg.classList.add('on');
-  pg.scrollTop = 0;
-  const tl = document.getElementById('tl-'+name);
-  if(tl) tl.classList.add('on');
+  const tl = document.getElementById('tl-media');
+  if (tl) tl.classList.remove('on');
+
+  document.getElementById('pg-' + name).classList.add('on');
+  document.getElementById('pg-' + name).scrollTop = 0;
+
+  if (name === 'media' && tl) tl.classList.add('on');
 }
 
-document.addEventListener('keydown',e=>{ if(e.key==='Escape') showPg('seniors'); });
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') showPg('seniors');
+});
 </script>
 </body>
 </html>
